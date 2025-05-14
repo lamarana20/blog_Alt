@@ -1,0 +1,50 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Main from "../../components/Main.astro";
+import H1 from "../../components/H1.astro";
+import { Image } from 'astro:assets';
+import { getCollection, type CollectionEntry } from "astro:content";
+
+
+// ✅ Props type declaration
+type Props = {
+  post: CollectionEntry<"posts">;
+};
+
+// ✅ Get props
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+// ✅ Generate static paths for each post
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({
+    params: {
+      slug: post.slug,
+    },
+    props: {
+      post,
+    },
+  }));
+}
+---
+
+<Layout title={post.data.title}>
+  
+  <Main>
+    <a href="/blog" class="text-zinc-500 text-2xl underline block hover:text-zinc-800 transition-colors ">
+        Back to blog
+    </a>
+    <H1 text={post.data.title} />
+    <Image 
+      src={post.data.image} 
+      width={1024} 
+      height={1025 /1.5} 
+      alt={post.data.title} 
+      class="rounded-2xl shadow-xl mb-4 aspect-thumbnail object-cover" 
+    />
+    <div class="prose prose-2xl overflow-visible relative mb-20">
+    <Content />
+    </div>
+  </Main>
+</Layout>

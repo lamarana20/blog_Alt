@@ -1,0 +1,11 @@
+node_modules
+.astro
+dist
+.DS_Store
+.env
+chemin/du/fichier
+node_modules/
+src/content/posts/images/
+src/content/posts/images/
+src/content/posts/images/
+src/content/posts/images/
