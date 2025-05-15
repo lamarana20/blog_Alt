@@ -2,49 +2,42 @@
 import Layout from "../../layouts/Layout.astro";
 import Main from "../../components/Main.astro";
 import H1 from "../../components/H1.astro";
-import { Image } from 'astro:assets';
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getEntryBySlug, type CollectionEntry, render } from "astro:content";
+import { Image } from "astro:assets";
 
+const { slug } = Astro.params;
 
-// ✅ Props type declaration
-type Props = {
-  post: CollectionEntry<"posts">;
-};
+// Récupère le post par son slug
+const post = await getEntryBySlug("posts", slug as string);
 
-// ✅ Get props
-const { post } = Astro.props;
-const { Content } = await post.render();
-
-// ✅ Generate static paths for each post
-export async function getStaticPaths() {
-  const posts = await getCollection("posts");
-  return posts.map((post) => ({
-    params: {
-      slug: post.slug,
-    },
-    props: {
-      post,
-    },
-  }));
+if (!post) {
+  return Astro.redirect("/404");
 }
+
+// Rend le contenu Markdown
+const { Content } = await render(post);
 ---
 
 <Layout title={post.data.title}>
-  
+
   <Main>
-    <a href="/blog" class="text-zinc-500 text-2xl underline block hover:text-zinc-800 transition-colors ">
-        Back to blog
+         <H1 text={post.data.title} />
+    <a href="/blog" class="text-zinc-500 text-2xl underline block hover:text-zinc-800 transition-colors">
+      Back to blog
     </a>
-    <H1 text={post.data.title} />
+
+   
+
     <Image 
       src={post.data.image} 
       width={1024} 
-      height={1025 /1.5} 
+      height={1024 / 1.5} 
       alt={post.data.title} 
       class="rounded-2xl shadow-xl mb-4 aspect-thumbnail object-cover" 
     />
+
     <div class="prose prose-2xl overflow-visible relative mb-20">
-    <Content />
+      <Content />
     </div>
   </Main>
 </Layout>
