@@ -3,7 +3,7 @@ author: jim-halpert
 categories: ["insights"]
 date: 08/10/2021
 featured: false
-image: /public/firts1.avif
+image: /firts1.avif
 title: Live music is crucial
 ---
 

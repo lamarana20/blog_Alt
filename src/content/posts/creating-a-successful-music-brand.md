@@ -3,7 +3,7 @@ author: pam-beesely
 categories: ["career advice"]
 date: 08/10/2025
 featured: false
-image: /public/thirt.avif
+image: /thirt.avif
 title: Creating a successful music brand
 ---
 

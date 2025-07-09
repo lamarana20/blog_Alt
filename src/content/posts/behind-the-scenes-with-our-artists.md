@@ -3,7 +3,7 @@ author: dwight-schrute
 categories: ["studio tips"]
 date: 08/10/2021
 featured: false
-image: /public/firts1.avif
+image: /firts1.avif
 
 title: Behind-the-scenes with our artists
 ---
